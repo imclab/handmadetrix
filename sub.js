@@ -50,14 +50,12 @@ var getColor = function() {
 }
 
 var matrix = function (string) {
-    if (Math.floor(Math.random() * (100 + 1)) % 2 == 1){
-        //return;
-    }
     var current = getRandomPosition(width);
     var position = getRandomPosition(window);
     terminal.move(position, current);
     var string = string.split("").reverse();
     var color = getColor();
+
     setInterval(function() {
         if (string.length > 1) {
             terminal.move(position, current)
@@ -74,7 +72,7 @@ app.post('/callback', function(request, res) {
     });
     request.on('end', function () {
         var post = parser.parseString(body, function (err, result) {
-            //console.log(JSON.stringify(result, null, 2));
+            //console.log(JSON.stringify(result, null, 2)); <-- if you wanna play with this, here's where the data's at. Modify at will.
             if (result['feed']['entry'][0]['title'][0].length > 1) {
                 var item = result['feed']['entry'][0]['title'][0];
                 matrix(item);
